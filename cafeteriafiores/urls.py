@@ -2,8 +2,14 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views as auth_views
 
+from cafeteria.views import (
+    inicio,
+    panel_encargado,
+    catalogo,
+    lista_categorias,
+    lista_productos
+)
 
-from cafeteria.views import inicio, panel_encargado, catalogo
 urlpatterns = [
     path('admin/', admin.site.urls),
 
@@ -26,13 +32,25 @@ urlpatterns = [
     ),
 
     path(
+        'encargado/categorias/',
+        lista_categorias,
+        name='lista_categorias'
+    ),
+
+    path(
+        'catalogo/',
+        catalogo,
+        name='catalogo'
+    ),
+
+    path(
         '',
         inicio,
         name='inicio'
     ),
     path(
-    'catalogo/',
-    catalogo,
-    name='catalogo'
-),
+    'encargado/productos/',
+    lista_productos,
+    name='lista_productos'
+    ),
 ]

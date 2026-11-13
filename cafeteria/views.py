@@ -13,7 +13,10 @@ def inicio(request):
 
 @staff_member_required
 def panel_encargado(request):
-    return HttpResponse("Panel del Encargado")
+    return render(
+        request,
+        "panel_encargado.html"
+    )
 
 
 @login_required
@@ -48,5 +51,52 @@ def catalogo(request):
         {
             "productos": productos,
             "categorias": categorias
+        }
+    )
+
+
+@staff_member_required
+def lista_categorias(request):
+
+    categorias = Categoria.objects.all()
+
+    return render(
+        request,
+        "categorias/lista.html",
+        {
+            "categorias": categorias
+        }
+    )
+@staff_member_required
+def lista_productos(request):
+
+    productos = Producto.objects.all()
+
+    buscar = request.GET.get("buscar")
+
+    if buscar:
+        productos = productos.filter(
+            nombre__icontains=buscar
+        ) | Producto.objects.filter(
+            codigo__icontains=buscar
+        )
+
+    disponible = request.GET.get("disponible")
+
+    if disponible == "1":
+        productos = productos.filter(
+            disponible=True
+        )
+
+    elif disponible == "0":
+        productos = productos.filter(
+            disponible=False
+        )
+
+    return render(
+        request,
+        "productos/lista.html",
+        {
+            "productos": productos
         }
     )

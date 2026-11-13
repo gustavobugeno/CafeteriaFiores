@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Encargado</title>
+</head>
+<body>
+
+    <h1>Panel Encargado</h1>
+
+    <p>
+        Bienvenido {{ request.user.username }}
+    </p>
+
+    <hr>
+
+    <h3>Gestión</h3>
+
+    <ul>
+
+        <li>
+            <a href="{% url 'lista_categorias' %}">
+                Gestionar Categorías
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'lista_productos' %}">
+                Gestionar Productos
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'catalogo' %}">
+                Ver Catálogo
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'inicio' %}">
+                Volver al Inicio
+            </a>
+        </li>
+
+    </ul>
+
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">
+            Cerrar sesión
+        </button>
+    </form>
+
+</body>
+</html>

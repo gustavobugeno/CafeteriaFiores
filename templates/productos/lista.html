@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Productos</title>
+</head>
+<body>
+
+    <h1>Gestión de Productos</h1>
+
+    <p>
+        <a href="{% url 'panel_encargado' %}">
+            ← Volver al panel
+        </a>
+    </p>
+
+    <hr>
+
+    <form method="get">
+
+        <input
+            type="text"
+            name="buscar"
+            placeholder="Buscar por nombre o código"
+        >
+
+        <select name="disponible">
+
+            <option value="">
+                Todos
+            </option>
+
+            <option value="1">
+                Disponibles
+            </option>
+
+            <option value="0">
+                No disponibles
+            </option>
+
+        </select>
+
+        <button type="submit">
+            Buscar
+        </button>
+
+    </form>
+
+    <hr>
+
+    <p>
+        <a href="#">
+            ➕ Nuevo Producto
+        </a>
+    </p>
+
+    <table border="1" cellpadding="10">
+
+        <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Disponible</th>
+            <th>Acciones</th>
+        </tr>
+
+        {% for producto in productos %}
+
+        <tr>
+
+            <td>{{ producto.codigo }}</td>
+
+            <td>{{ producto.nombre }}</td>
+
+            <td>{{ producto.categoria.nombre }}</td>
+
+            <td>${{ producto.precio }}</td>
+
+            <td>{{ producto.stock }}</td>
+
+            <td>
+                {% if producto.disponible %}
+                    ✅ Sí
+                {% else %}
+                    ❌ No
+                {% endif %}
+            </td>
+
+            <td>
+                <a href="#">Ver</a>
+                |
+                <a href="#">Editar</a>
+                |
+                <a href="#">Eliminar</a>
+            </td>
+
+        </tr>
+
+        {% empty %}
+
+        <tr>
+            <td colspan="7">
+                No existen productos
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</body>
+</html>

@@ -8,7 +8,9 @@
 
     <h1>Bienvenido a Cafetería Fiores</h1>
 
-    <p>Usuario: {{ request.user.username }}</p>
+    <p>
+        Usuario: {{ request.user.username }}
+    </p>
 
     <p>
         Rol:
@@ -19,11 +21,34 @@
         {% endif %}
     </p>
 
+    <hr>
+
+    <h3>Menú</h3>
+
+    <ul>
+
+        <li>
+            <a href="{% url 'catalogo' %}">
+                Ver catálogo
+            </a>
+        </li>
+
+        {% if request.user.is_staff %}
+        <li>
+            <a href="{% url 'panel_encargado' %}">
+                Panel Encargado
+            </a>
+        </li>
+        {% endif %}
+
+    </ul>
+
     <form action="{% url 'logout' %}" method="post">
         {% csrf_token %}
         <button type="submit">
             Cerrar sesión
         </button>
     </form>
+
 </body>
 </html>
